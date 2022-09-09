@@ -1,9 +1,12 @@
-import { FC } from "react";
 import { Link } from "react-router-dom";
 
 import { Product } from "../types/ProductModel";
 
-const ProductItem: FC<Product> = (product: Product) => {
+const ProductItem = (product: Product) => {
+  let price = product.price.toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
   return (
     <Link to={`/product-detail/${product._id}`}>
       <div className="max-w-sm rounded overflow-hidden shadow-lg group relative p-3">
@@ -21,7 +24,7 @@ const ProductItem: FC<Product> = (product: Product) => {
               {product.name}
             </h3>
           </div>
-          <p className="text-sm font-medium text-gray-900">$ {product.price}</p>
+          <p className="text-sm font-medium text-gray-900">{price}</p>
         </div>
       </div>
     </Link>

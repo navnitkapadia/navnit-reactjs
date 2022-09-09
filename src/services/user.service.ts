@@ -3,11 +3,11 @@ import { User } from '../types/UserModel';
 
 const url = process.env.REACT_APP_API_URL;
 
-export const GetToken = async (user: User) => {
-    const { data } = await axios.post<any>(`${url}/api/users/`, {...user});
-    if ( data ) {
-        localStorage.setItem('token', data.token)
-        return data.token;
+export const getToken = async (user: User) => {
+    const { data: {token} } = await axios.post<{email: string;fullName: string;message: string; token: string}>(`${url}/api/users/`, {...user});
+    if ( token ) {
+        localStorage.setItem('token', token)
+        return token;
     };
     return '';
 }

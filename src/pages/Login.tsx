@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import validationSchema from "../validations/user.validation";
 
-import { getGithubAvatar, GetToken } from "../services/user.service";
+import { getGithubAvatar, getToken } from "../services/user.service";
 import { User } from "../types/UserModel";
 
 const Login = () => {
@@ -22,7 +22,7 @@ const Login = () => {
           values.github.split("/")[3]
         );
         values = { ...values, avatar: avatar_url };
-        await GetToken({ ...values } as User);
+        await getToken({ ...values } as User);
         navigate("/");
       } catch (e: any) {
         bag.setErrors(e);
@@ -49,7 +49,7 @@ const Login = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.fullName}
-            className="relative block w-full mb-5 appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            className="relative block w-full mt-5 appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             type="text"
             placeholder="Name"
           />
@@ -64,7 +64,7 @@ const Login = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.email}
-            className="elative block w-full mb-5 appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            className="elative block w-full mt-5 appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             placeholder="Email"
           />
           {formik.errors.email && formik.touched.email && (
@@ -76,7 +76,7 @@ const Login = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.github}
-            className="elative block w-full mb-5 appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            className="elative block w-full mt-5 appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             placeholder="Github profile link"
           />
           {formik.errors.github && formik.touched.github && (
@@ -87,7 +87,7 @@ const Login = () => {
             type="submit"
             className="inline-block px-7 mt-4 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out w-full"
           >
-            SEND
+            login
           </button>
         </form>
       </div>

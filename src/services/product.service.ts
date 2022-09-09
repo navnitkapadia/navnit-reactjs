@@ -4,8 +4,8 @@ import { Product } from '../types/ProductModel';
 const url: string = process.env.REACT_APP_API_URL;
 
 export const productList = async () => {
-    const { data } = await axiosAuth.get<Product[]>(`${url}/api/products`);
-    return data;
+    const { data } = await axiosAuth.get<{products: Product[]}>(`${url}/api/products`);
+    return data.products;
 }
 
 export const productById = async (id: string) => {

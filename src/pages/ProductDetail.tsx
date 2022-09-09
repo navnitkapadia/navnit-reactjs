@@ -15,13 +15,17 @@ const ProductDetail = () => {
         <Spinner />
       </div>
     );
-  if (isError) return <p>Error!</p>;
+  if (isError) return <p className="text-red-400">Oops something went wrong</p>;
 
-  const { product } = data;
-
+  const { product } = data || {};
   return (
     <div className="m-8 p-5">
-      {data && (
+      {!product && (
+        <div className="flex align-center justify-center h-3/6">
+          <div className="font-sans text-center text-xl"> No product found</div>
+        </div>
+      )}
+      {product && (
         <>
           <div className="flex justify-start items-start">
             <img

@@ -17,7 +17,6 @@ const Products = () => {
   const navigate = useNavigate();
   const selected = useAppSelector<string>(selectValue);
   const search = useAppSelector<string>(searchValue);
-
   const filterItem: string =
     selected !== "-1" ? selected : "" || search !== "" ? search : "";
 
@@ -25,9 +24,8 @@ const Products = () => {
     ["products"],
     () => productList(),
     {
-      select: (products: any) =>
-        products &&
-        products.products.filter((product: Product) => {
+      select: (data: Product[]) =>
+        data.filter((product: Product) => {
           return (
             product["category"]
               ?.toLowerCase()
@@ -44,7 +42,7 @@ const Products = () => {
       </div>
     );
 
-  if (isError) return <p>Error!</p>;
+  if (isError) return <p className="text-red-400">Oops something went wrong</p>;
 
   return (
     <>
@@ -60,14 +58,19 @@ const Products = () => {
           Create Product
         </button>
       </div>
-      <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-        {data &&
-          data.map((p: Product) => (
+      {data?.length ? (
+        <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+          {data?.map((p: Product) => (
             <Fragment key={p._id}>
               <ProductItem {...p} />
             </Fragment>
           ))}
-      </div>
+        </div>
+      ) : (
+        <div className="flex align-center justify-center h-3/6">
+          <div className="font-sans text-center text-xl">No products found</div>
+        </div>
+      )}
     </>
   );
 };

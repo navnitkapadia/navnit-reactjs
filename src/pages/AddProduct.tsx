@@ -46,7 +46,7 @@ const AddProduct = ({
     },
   });
 
-  const { data } = useQuery<any>("categories", categoryList);
+  const { data } = useQuery("categories", categoryList);
 
   return (
     <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -150,7 +150,7 @@ const AddProduct = ({
               className="block appearance-none w-full border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
             >
               <option value="-1">Categories</option>
-              {data?.categories.map((cat: any) => (
+              {data?.map((cat: any) => (
                 <option
                   key={cat._id}
                   value={cat.name}

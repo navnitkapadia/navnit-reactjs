@@ -1,11 +1,13 @@
-import { Outlet } from "react-router-dom";
-
-import checkToken from "../helpers/checkToken";
-import Login from "../pages/Login";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const ProtectedRoutes = () => {
-  const isAuth: boolean = checkToken();
-  return isAuth ? <Outlet /> : <Login />;
+  const isAuth = localStorage.getItem("token") || "";
+  const navigate = useNavigate();
+  if (!isAuth) {
+    navigate("/login");
+    return null;
+  }
+  return <Outlet />;
 };
 
 export default ProtectedRoutes;

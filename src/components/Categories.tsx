@@ -3,12 +3,13 @@ import { useAppDispatch } from "../redux/hooks";
 
 import { useQuery } from "react-query";
 import { categoryList } from "../services/category.service";
+import { Category } from "../types/CategoryModel";
 import Spinner from "./Spinner";
 
 const Categories = () => {
   const dispatch = useAppDispatch();
 
-  const { isLoading, isError, data } = useQuery<any>(
+  const { isLoading, isError, data } = useQuery<Category[]>(
     "categories",
     categoryList
   );
@@ -19,7 +20,7 @@ const Categories = () => {
         <Spinner />
       </div>
     );
-  if (isError) return <p>Error!</p>;
+  if (isError) return <p className="text-red-400">Oops something went wrong</p>;
 
   const handleChange = (e: React.ChangeEvent<{ value: string }>) => {
     const sValue: string = e.target.value;
@@ -33,16 +34,15 @@ const Categories = () => {
         className="block appearance-none w-full border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
       >
         <option value="-1">Categories</option>
-        {data &&
-          data.categories.map((cat: any) => (
-            <option
-              key={cat._id}
-              value={cat.name}
-              className="text-gray-500 px-4 py-3 text-base"
-            >
-              {cat.name}
-            </option>
-          ))}
+        {data?.map(({ _id, name }) => (
+          <option
+            key={_id}
+            value={name}
+            className="text-gray-500 px-4 py-3 text-base"
+          >
+            {name}
+          </option>
+        ))}
       </select>
       <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
         <svg
